@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Einstellungen</title>
+    <script src="/js/settings.js" defer></script>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <section class="my-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Einstellungen</h1>
+
+                    <!-- Home Connect Einstellungen -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class ="card-title">Home Connect Verbindung</h2>
+                                    <form th:action="@{/oauth2/save}" th:object="${oAuth2Provider}" method="post" name="homeconnectSettingsForm" class="card-text">
+                                        <div class="mb-3">
+                                            <label for="clientID" class="form-label">Client ID</label>
+                                            <input type="text" name="clientId" th:value="${oAuth2ProviderSaved.clientId}" class="form-control" id="clientID" aria-describedby="clientIDHelp">
+                                            <div id="clientIDHelp" class="form-text">Client ID aus dem Home Connect Developer Portal</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="clientSecret" class="form-label">Client Secret</label>
+                                            <input type="text" name="clientSecret" th:value="${oAuth2ProviderSaved.clientSecret}" class="form-control" id="clientSecret" aria-describedby="clientSecretHelp">
+                                            <div id="clientSecretHelp" class="form-text">Client Secret aus dem Home Connect Developer Portal</div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Speichert Client ID und Client Secret">Speichern</button>
+                                        <button type="button" id="buttonHomeConnectDelete" class="btn btn-danger" onclick="deleteHomeConnect()" data-bs-toggle="tooltip" data-bs-placement="top" title="Löscht alle Home Connect Verbindungsdaten">Löschen</button>
+                                        <button type="button" th:if="${isAuthorizable}" id="buttonHomeConnectAuthorize" onclick="authorizeHomeConnect()" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Startet die Home Connect API Autorisierung">Autorisieren</button>
+                                        <button type="button" th:if="${isRefreshable}" id="buttonHomeConnectRefresh" onclick="refreshHomeConnect()" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Aktualisiert den Access-Token">Refresh Token</button>
+
+                                        Access Token gültig bis: <span th:if="${expireDate}" th:text="${expireDate}"></span>
+                                        <span th:switch="${isExpired}">
+                                            <span th:case="false" class="badge rounded-pill bg-success">Gültig</span>
+                                            <span th:case="true" class="badge rounded-pill bg-danger">Abgelaufen</span>
+                                        </span>
+                                    </form>
+                            </div>
+                        </div>
+
+                    <!--- SEMP Einstellungen --->
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class ="card-title">SEMP Einstellungen</h2>
+                            <form th:action="@{/sempmanager/save}" th:object="${sempManager}" method="post" name="sempSettingsForm" class="card-text">
+                                <div class="mb-3">
+                                    <label for="localIP" class="form-label">Lokale IP Adresse</label>
+                                    <input type="text" name="localServerIpAddress" th:value="${sempManager.localServerIpAddress}" class="form-control" id="localIP" aria-describedby="localIPHelp">
+                                    <div id="localIPHelp" class="form-text">Lokale IP Adresse worüber der Energiemanager HomeConnect2SEMP erreichen kann (z.B. 192.168.178.10)</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="uuid" class="form-label">UUID</label>
+                                    <input type="text" name="uuid" th:value="${sempManager.uuid}" class="form-control" id="uuid" aria-describedby="uuidHelp" disabled>
+                                    <div id="uuidHelp" class="form-text">Unique UUID des HomeConnect2SEMP Dienst (wird automatisch generiert)</div>
+                                </div>
+                                <div class="form-check form-switch mb-3">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">SEMP aktivieren</label>
+                                    <input name="activateSempConnection" th:checked="${sempManager.activateSempConnection}" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" aria-describedby="sempHelp">
+                                    <div id="sempHelp" class="form-text">Aktiviert die SEMP Verbindung zum Energiemanager</div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Speichert die lokale IP Adresse ab">Speichern</button>
+                                <button type="button" id="buttonSEMPDelete" class="btn btn-danger" onclick="deleteSEMP()" data-bs-toggle="tooltip" data-bs-placement="top" title="Löscht alle SEMP Daten">Löschen</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!--- User Einstellungen --->
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class ="card-title">Passwort ändern</h2>
+                            <form th:action="@{/user/updatePassword}" method="post" name="userSettingsForm" class="card-text needs-validation" novalidate>
+                                <div class="mb-3">
+                                    <label for="newPassword" class="form-label">Neues Passwort</label>
+                                    <input type="password" name="newPassword" class="form-control" id="newPassword" required>
+                                    <div class="valid-feedback">
+                                        OK!
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Speichert das neue Passwort ab">Speichern</button>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>

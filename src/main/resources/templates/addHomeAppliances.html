@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Haushaltsgerät hinzufügen</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <section class="my-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Haushaltsgerät hinzufügen</h1>
+
+<!--- Geräte --->
+                        <div class="container">
+                            <div class="row row-cols-2 g-2">
+
+                                <th:block th:each="homeAppliance : ${homeAppliances.getHomeAppliances()}">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title" th:text="${homeAppliance.getType()}">Home Appliance Type</h5>
+                                                <p class="card-text">Home Connect Haushaltsgerät</p>
+                                            </div>
+
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Gerätedaten</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">Name:</th>
+                                                    <td th:text="${homeAppliance.getName()}">Name</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Hersteller:</th>
+                                                    <td th:text="${homeAppliance.getBrand()}">Brand</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Type:</th>
+                                                    <td th:text="${homeAppliance.getType()}">type</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Vib:</th>
+                                                    <td th:text="${homeAppliance.getVib()}">vib</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">E-Nummer:</th>
+                                                    <td th:text="${homeAppliance.getEnumber()}">enumber</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">HA-ID:</th>
+                                                    <td th:text="${homeAppliance.getHaId()}">haid</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Verbunden:</th>
+                                                    <td th:text="${homeAppliance.isConnected()}">connected</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div class="card-body">
+                                                <a th:href="@{/homeconnect/homeappliance/add/{id}(id=${homeAppliance.getHaId()})}">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Fügt das Haushaltsgerät dem System zu">Hinzufügen</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+
+                            </div>
+                        </div>
+<!--- Geräte --->
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<th:block th:fragment="optional">
+
+</th:block>
+
+</body>
+</html>

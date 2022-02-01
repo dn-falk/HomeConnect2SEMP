@@ -1,0 +1,12 @@
+de.dennisfalk.homeconnect2semp
+de.dennisfalk.homeconnect2semp.configuration
+de.dennisfalk.homeconnect2semp.controller
+de.dennisfalk.homeconnect2semp.listener
+de.dennisfalk.homeconnect2semp.model
+de.dennisfalk.homeconnect2semp.model.homeConnect
+de.dennisfalk.homeconnect2semp.model.semp
+de.dennisfalk.homeconnect2semp.model.semp.sempMessage
+de.dennisfalk.homeconnect2semp.repository
+de.dennisfalk.homeconnect2semp.scheduler
+de.dennisfalk.homeconnect2semp.security
+de.dennisfalk.homeconnect2semp.service

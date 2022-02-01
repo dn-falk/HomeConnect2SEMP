@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Hilfe</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+  <section class="my-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Hilfe</h1>
+          <h3>Erste Schritte</h3>
+          <ol class="list-group list-group-numbered">
+            <li class="list-group-item">Haushaltsgerät mit Home Connect verbinden (siehe Anleitung des Herstellers)</li>
+            <li class="list-group-item">Auf der Webseite <a href="https://developer.home-connect.com">
+              https://developer.home-connect.com</a> einen Developer Account erstellen und mit dem eigenen Home Connect Account verbinden</li>
+            <li class="list-group-item"><a href="https://developer.home-connect.com/applications/add">Hier</a> eine
+            neue Anwendung registrieren</li>
+            <li class="list-group-item">Application ID/Namen vergeben</li>
+            <li class="list-group-item">Folgendes unter Redirect URI eintragen: http://localhost:8080/oauth2/code</li>
+            <li class="list-group-item">Speichern und danach die Client ID und Client Secret hier in den Einstellungen speichern</li>
+            <li class="list-group-item">Die lokale IP in den SEMP Einstellungen eintragen und den Schalter "SEMP aktivieren" einschalten</li>
+            <li class="list-group-item">In der Navigationsleiste auf Gerät klicken und dort auf das große Plus</li>
+            <li class="list-group-item">Ein oder mehrere Home Connect Geräte hinzufügen</li>
+            <li class="list-group-item">Auf der Hauptseite nun noch die Anschlussleistung des Gerätes eintragen (siehe Typenschild z.B. 2200W)</li>
+            <li class="list-group-item">Da keine Messeinrichtung für die Leistungsmessung vorhanden ist, muss eine ca. Leistung für den Gerätebetrieb eingegeben werden</li>
+            <li class="list-group-item">Im Sunny Portal nach neuen Geräten suchen und die neuen Haushaltsgeräte hinzufügen</li>
+            <li class="list-group-item">Am Haushaltsgerät muss jetzt folgendes aktiviert sein, damit dieser vom Home Manager ferngestartet werden kann:</li>
+            <li class="list-group-item">Fernsteuerung und Fernstart muss aktiv sein. Es muss ein Programm und der verzögerte Start ausgewählt sein (spätester Einschaltzeitpunkt)</li>
+            <li class="list-group-item">Das Programm starten. Im Sunny Portal erscheint nun unter Prognose das eingeplante Haushaltsgerät im Zeitstrahl</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>HomeConnect2SEMP</title>
+    <script src="/js/index.js" defer></script>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <section class="my-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Haushaltsgeräte
+                        <i id="refreshHomeAppliances" onclick="refreshHomeAppliances()" class="fas fa-sync fa-spin-hover" data-bs-toggle="tooltip" data-bs-placement="top" title="Aktualisiert die gespeicherten Haushaltsgeräte"></i>
+                        <i id="addHomeAppliances" onclick="addHomeAppliances()" class="fas fa-plus" data-bs-toggle="tooltip" data-bs-placement="top" title="Fügt ein neues Haushaltsgerät zum System hinzu"></i>
+                    </h1>
+                    <!--- Meldung für nicht konfigurierte Verbindung -->
+                    <div th:unless="${isConfigured}" class="alert alert-danger" role="alert">Home Connect Daten sind noch nicht eingetragen oder abgelaufen <br>
+                    <a href="/settings">Einstellungen</a></div>
+<!--- Geräte --->
+                        <div th:if="${isConfigured}" class="container">
+                            <div class="row row-cols-2 g-2">
+
+                                <th:block th:each="homeAppliance : ${homeAppliances.getHomeAppliances()}">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title" th:text="${homeAppliance.getType()}">Home Appliance Type</h5>
+                                                <p class="card-text">Home Connect Haushaltsgerät</p>
+                                            </div>
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Gerätedaten</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">Name:</th>
+                                                    <td th:text="${homeAppliance.getName()}">Name</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Hersteller:</th>
+                                                    <td th:text="${homeAppliance.getBrand()}">Brand</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Type:</th>
+                                                    <td th:text="${homeAppliance.getType()}">type</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Vib:</th>
+                                                    <td th:text="${homeAppliance.getVib()}">vib</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">E-Nummer:</th>
+                                                    <td th:text="${homeAppliance.getEnumber()}">enumber</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">HA-ID:</th>
+                                                    <td th:text="${homeAppliance.getHaId()}">haid</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">SEMP-ID:</th>
+                                                    <td th:text="${homeAppliance.getSempID()}">sempid</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col"></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                <tr>
+                                                    <th scope="row">Verbunden:</th>
+                                                    <td th:text="${homeAppliance.isConnected()}">connected</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" >Betriebsstatus:</th>
+                                                    <td th:text="${homeAppliance.getOperationStateReadable()}">value</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" >Fernbedienung:</th>
+                                                    <td th:text="${homeAppliance.isBshCommonStatusRemoteControlActive()}">value</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" >Remote Start:</th>
+                                                    <td th:text="${homeAppliance.isBshCommonStatusRemoteControlStartAllowed()}">value</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">EM-Start möglich:</th>
+                                                    <td th:text="${homeAppliance.isSempRemoteStartable()}">value</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+
+                                            <form th:action="@{/homeconnect/save/{id}(id=${homeAppliance.getHaId()})}" th:object="${homeAppliance}" method="post" name="homeApplianceSettingsForm">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Einstellungen</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">Anschlussleistung (in Watt):</th>
+                                                    <td><input type="text" name="connectionPowerInWatt" th:value="${homeAppliance.connectionPowerInWatt}" class="form-control" id="connectionPowerInWatt"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" >Ø-Verbrauch in Betrieb (in Watt):</th>
+                                                    <td><input type="text" name="averageOperatingPowerPerMinuteInWatt" th:value="${homeAppliance.averageOperatingPowerPerMinuteInWatt}" class="form-control" id="averageOperatingPowerPerMinuteInWatt"></td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+
+
+                                            <div class="card-body">
+                                                <a th:href="@{/homeconnect/homeappliance/delete/{id}(id=${homeAppliance.getHaId()})}">
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Löscht das Haushaltsgerät aus dem System">Löschen</button>
+                                                    <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Speichert die Geräte Einstellungen ab">Speichern</button>
+                                                </a>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </th:block>
+
+                            </div>
+                        </div>
+<!--- Geräte --->
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<th:block th:fragment="optional">
+
+</th:block>
+
+</body>
+</html>

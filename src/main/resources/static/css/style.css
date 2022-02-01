@@ -1,0 +1,27 @@
+#addHomeAppliances {
+    font-size: 90%;
+    color: black;
+}
+
+#addHomeAppliances:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+#refreshHomeAppliances {
+    font-size: 90%;
+    color: black;
+}
+
+#refreshHomeAppliances:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+
+.fa-spin-hover:hover {
+    animation: fa-spin 2s infinite linear;
+}
+
+@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
