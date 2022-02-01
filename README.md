@@ -1,8 +1,6 @@
 # Übersicht
-- [Readme (dieses Dokument)]()
-- [Changelog]()
-- [Java Doc]()
-- [Download Release v.1.0.0]()
+- [Changelog](https://github.com/dennis-nikolas-falk/HomeConnect2SEMP/blob/main/CHANGELOG.md)
+- [Download Release v.1.0.0](https://github.com/dennis-nikolas-falk/HomeConnect2SEMP/raw/main/release/HomeConnect2SEMP-1.0.0.war)
 
 # Funktion
 HomeConnect2SEMP stellt eine Verbindung zwischen Home Connect Haushaltsgeräten und
