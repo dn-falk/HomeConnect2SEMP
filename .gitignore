@@ -331,3 +331,4 @@ TSWLatexianTemp*
 /target/
 /.mvn/
 /database.db
+/release/
