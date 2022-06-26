@@ -34,6 +34,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -77,12 +78,12 @@ public class SEMPManagerController {
      * @return String xml with data of this semp gateway
      */
     @GetMapping(value = "/semp/description.xml", produces = "application/xml")
-    public String getSEMPDescription() {
+    public String getSEMPDescription(HttpServletRequest request) {
 
         //Takes the xml template and generates an individual xml
         String xml =  sempManagerRepository.findByName("homeconnect")
                 .refreshDescriptionSEMPxmlFile(resourceLoader.getResource("classpath:data/description.xml"));
-        log.info("SEMP: description.xml angefordert");
+        log.info("SEMP: description.xml angefordert von: " + request.getRemoteAddr());
         return xml;
     }
 

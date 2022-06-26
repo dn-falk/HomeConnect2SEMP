@@ -94,7 +94,7 @@ public class SEMPManager {
             factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             Document input = factory
                     .newDocumentBuilder()
-                    .parse(resource.getFile());
+                    .parse(resource.getInputStream());
             //updates the server ip
             NodeList nodes = input.getElementsByTagName("semp:server");
             for (int i = 0; i < nodes.getLength(); i++) {

@@ -1,5 +1,10 @@
 # Übersicht
 - [Changelog](https://github.com/dennis-nikolas-falk/HomeConnect2SEMP/blob/main/CHANGELOG.md)
+
+## Release
+### Aktuell
+- [Download Release v.1.1.0](https://github.com/dennis-nikolas-falk/HomeConnect2SEMP/releases/download/v1.1.0/HomeConnect2SEMP-1.1.0.war)
+### Archiv
 - [Download Release v.1.0.0](https://github.com/dennis-nikolas-falk/HomeConnect2SEMP/releases/download/v1.0.0/HomeConnect2SEMP-1.0.0.war)
 
 # Funktion
@@ -8,8 +13,8 @@ einem SMA-Energiemanagementsystem (z. B. Home Manager 2.0) her. Dadurch kann z. 
 Energieplanung des Energiemanagers berücksichtigt werden. Das Gerät wird dann zum optimalen Zeitpunkt gestartet.
 
 # Installation
-- Java 11 wird benötigt (z.B. OpenJDK)
-- Anwendung starten mit `java -jar HomeConnect2SEMP-1.0.0.war`
+- Java wird benötigt (z.B. Temurin Java 17 (https://adoptium.net))
+- Anwendung starten mit `java -jar HomeConnect2SEMP-1.1.0.war`
 - http://localhost:8080 im Browser aufrufen
 - Login: `user` Passwort: `password`
 
